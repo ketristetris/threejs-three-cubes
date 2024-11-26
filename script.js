@@ -1,5 +1,7 @@
 import * as THREE from 'three';
 
+window.addEventListener('wheel', onMouseWheel);
+
 //creating scene
 var scene = new THREE.Scene();
 //main variables
@@ -15,6 +17,24 @@ var fov = 75,
 var camera = new THREE.PerspectiveCamera(fov, aspect, near, far)
 camera.position.z = 2.5;
 
+const step = 0.1,
+        zMin = 1.7,
+        zMax = 3.2;
+function onMouseWheel(event) {
+    event.preventDefault();
+    
+        if (event.deltaY > 0) { // mouse wheel down
+            if (camera.position.z + step <= zMax){
+            camera.position.z += 0.1;
+            var i = camera.position.z;
+            console.log(i)
+            }
+        } else {
+            if (camera.position.z - step >= zMin){
+            camera.position.z -= 0.1;
+            }
+        }
+    };
 //renderer
 var renderer = new THREE.WebGLRenderer();
 renderer.setSize(width, height);
